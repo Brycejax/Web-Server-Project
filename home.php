@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+if (!isset($_SESSION['userID'])) {
+    header("location: ./login.php");
+    $_SESSION['fail'] = "You are Not logged In";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,14 +26,31 @@
     <div class="container">
         <h1 style="text-align: center; padding: 40px;">Welcome to Your Personal Notes</h1>
         <div class="row">
-            <div class="col-md-2"></div>
+            <div class="col-md-2" style="text-align: center;">
+            <form action="./web_interface/delete.php" method="post">  
+                    <!-- need to impliment sql functions on submit -->
+                    <input style= "padding: 20px; align: left;" id="noteID"  name="noteID" class="form-control" type="Title" placeholder="noteid">
+                    <br>
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+                <br>
+                <form action="./web_interface/editRow.php" method="post">  
+                    <!-- need to impliment sql functions on submit -->
+                    <input style= "padding: 20px;" id="noteID"  name="noteID" class="form-control" type="Title" placeholder="noteid">
+                    <br>
+                    <button class="btn btn-warning" type="submit">Update</button> 
+                </form>
+            </div>
             <div class="col-md-4">
                 <!-- create tasks in our database -->
-                <form action="#">  
+
+                <form action="./web_interface/insert_note.php" method="post">  
                     <!-- need to impliment sql functions on submit -->
-                    <input style= "padding: 20px;" class="form-control" type="Title" placeholder="Title">
+                    <input style= "padding: 20px;" id="Title" name="Title" class="form-control" type="Title" placeholder="Title">
+                    <input style= "padding: 20px;" id="noteID"  name="noteID" class="form-control" type="Title" placeholder="noteid">
+                    <input style= "padding: 20px;" id="OwnerID"  name="OwnerID" class="form-control" type="Title" placeholder="OwnerID">
                     <br>
-                    <textarea style= "padding: 20px;" class="form-control" type="password" placeholder="description" ></textarea >
+                    <textarea style= "padding: 20px;" id="Content" name="Content" class="form-control" type="Content" placeholder="description" ></textarea >
                     <br>
                     <div class="row">
                         <div class="col-md-4"></div>
@@ -34,10 +60,14 @@
                         <div class="col-md-4"></div>
                     </div>
                 </form>
+                <br>
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-4">
-                <p>notes will display here in a grid like system</p>
+                <?php
+                require("./web_interface/results.php");
+               
+                ?>
             </div>
             <div class="col-md-1"></div>
         </div>

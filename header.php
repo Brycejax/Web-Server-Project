@@ -24,17 +24,31 @@
                             <a href="./home.php" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a href="./login.php" class="nav-link">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./register.php" class="nav-link">Register</a>
-                        </li>
-                        <li class="nav-item">
                             <a href="./about.php" class="nav-link">About</a>
                         </li>
                         <li class="nav-item">
                             <a href="./support.php" class="nav-link">Support</a>
                         </li>
+                        <?php
+                            if (!isset($_SESSION["userID"])) {
+                                echo '
+                                    <li class="nav-item">
+                                        <a href="./login.php" class="nav-link">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./register.php" class="nav-link">Register</a>
+                                ';
+                            }
+                        ?>
+                        <?php
+                        if (isset($_SESSION['userID'])) {
+                            echo '
+                            <li class="nav-item">
+                            <a href="./web_interface/logout.php" class="nav-link">Logout</a>
+                            </li>
+                            ';
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
